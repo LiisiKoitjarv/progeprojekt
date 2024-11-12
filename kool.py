@@ -15,7 +15,7 @@
 ##################################################
 
 #väärtused jms
-from pygame import*
+import pygame
 import sys
 
 init()
