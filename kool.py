@@ -10,8 +10,8 @@
 #
 # mõningane eeskuju: Donkey Kong (1981)
 #
-# Lisakommentaar (nt käivitusjuhend): 
-#
+# Lisakommentaar (nt käivitusjuhend): lae alla ka pildid ja
+# helid ning lihtsalt pane run kas Thonnys või VSCode'is
 ##################################################
 
 #väärtused jms
@@ -173,7 +173,4 @@ class Player():
                 self.rect.angle = 90
                 mang_labi = 2
                 surm_sound.play()
-            if pygame.sprite.spritecollide(self, jaa_grupp, False):
-                #libe!!
-                self.speed *= 1.5
-                hype_sound.play()
+            
