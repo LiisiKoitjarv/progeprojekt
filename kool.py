@@ -39,9 +39,9 @@ roheline = (0, 128, 0)
 punane = (255, 0, 0)
 valge = (255, 255, 255)
 
-font = font.SysFont('arial', 50)
-voit_font = font.SysFont('Times New Roman', 200)
-taimer_font = font.SysFont('Times New Roman', 50)
+font = pygame.font.SysFont('arial', 50)
+voit_font = pygame.font.SysFont('Times New Roman', 200)
+taimer_font = pygame.font.SysFont('Times New Roman', 50)
 
 lopp_img = pygame.image.load('lopp.png')
 auto_img = pygame.image.load('auto.png')
@@ -54,12 +54,12 @@ orav_img = pygame.image.load('orav.png')
 #muusika ja heli
 mixer.music.load('muuuusika')
 mixer.music.play(-1, 0.0, 5000)
-jump_sound = mixer.Sound('hüpeee')
-jump_sound.set_volume(0.5)
+hype_sound = mixer.Sound('hüpeee')
+hype_sound.set_volume(0.5)
 surm_sound = mixer.Sound('surmmmmm')
 surm_sound.set_volume(0.5)
-win_sound = mixer.Sound('võittttttt')
-win_sound.set_volume(0.5)
+voit_sound = mixer.Sound('võittttttt')
+voit_sound.set_volume(0.5)
 
 #taimer
 minutid = 0
@@ -139,7 +139,7 @@ class Player():
         if mang_labi == 0:
             key = pygame.key.get_pressed()
             if key[pygame.K_SPACE] or key[pygame.K_w] and self.jumperd == False:
-                jump_sound.play()
+                hype_sound.play()
                 self.vel_y = -15
                 self.jumped = True
             if key[pygame.K_SPACE] == False and key[pygame.K_w] == False:
@@ -176,4 +176,4 @@ class Player():
             if pygame.sprite.spritecollide(self, jaa_grupp, False):
                 #libe!!
                 self.speed *= 1.5
-                jump_sound.play()
+                hype_sound.play()
