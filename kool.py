@@ -24,8 +24,8 @@ clock = time.Clock()
 fps = 60
 
 ekraani_laius, ekraani_korgus = display.Info().current_w, display.Info().current_h
-ekraan = display.set_mode((ekraani_laius, ekraani_korgus), FULLSCREEN)
-display.set_caption('Kool')
+ekraan = pygame.display.set_mode((ekraani_laius, ekraani_korgus), FULLSCREEN)
+pygame.display.set_caption('Kool')
 
 ruudu_suurus = 50
 mang_labi = 0
@@ -172,22 +172,22 @@ class Player():
         walk_cooldown = 5
         
         if mang_labi == 0:
-            key = key.get_pressed()
-            if key[K_SPACE] or key[K_w] and self.jumperd == False:
+            key = pygame.key.get_pressed()
+            if key[pygame.K_SPACE] or key[pygame.K_w] and self.jumperd == False:
                 jump_sound.play()
                 self.vel_y = -15
                 self.jumped = True
-            if key[K_SPACE] == False and key[K_w] == False:
+            if key[pygame.K_SPACE] == False and key[pygame.K_w] == False:
                 self.jumped = False
-            if key[K_a]:
+            if key[pygame.K_a]:
                 dx -=5
                 self.counter += 1
                 self.direction = -1
-            if key[K_d]:
+            if key[pygame.K_d]:
                 dx += 5
                 self.counter += 1
                 self.direction = 1
-            if key[K_a] == False and key[K_d] == False:
+            if key[pygame.K_a] == False and key[pygame.K_d] == False:
                 self.counter = 0
                 self.index = 0
                 if self.direction == 1:
