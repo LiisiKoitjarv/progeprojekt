@@ -35,6 +35,7 @@ roosa = (255, 0, 125)
 sinine = (0, 0, 255)
 roheline = (0, 128, 0)
 punane = (255, 0, 0)
+valge = (255, 255, 255)
 
 font = font.SysFont('arial', 50)
 voit_font = font.SysFont('Times New Roman', 200)
@@ -45,7 +46,7 @@ auto_img = pygame.image.load('auto.png')
 ratas_img = pygame.image.load('ratas.png')
 jaa_img = pygame.image.load('jaa.png')
 orav_img = pygame.image.load('orav.png')
-kopter_img = pygame.image.load('kopter.png')
+#kopter_img = pygame.image.load('kopter.png') - tuleb veel!!!
 
 
 
@@ -130,30 +131,11 @@ class Ratas(pygame.sprite.Sprite):
         if abs(self.move_counter) > 50:
             self.move_direction *= -1
             self.move_counter *= -1
-        
-class Kopter(pygame.sprite.Sprite):
-     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        img = kopter_img
-        self.image = pygame.transform.scale(img, (ruudu_suurus, ruudu_suurus))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        
-    def update(self):
-        self.rect.y += self.move_direction
-        self.move_counter += 0.5
-        if abs(self.move_counter) > 50:
-            self.move_direction *= -1
-            self.move_counter *= -1
             
 auto_grupp = pygame.sprite.Group()
 orav_grupp = pygame.sprite.Group()
 jaa_grupp = pygame.sprite.Group()
 ratas_grupp = pygame.sprite.Group()
-kopter_grupp = pygame.sprite.Group()
-
-
 
 
 class Player():
@@ -203,14 +185,12 @@ class Player():
             if pygame.sprite.spritecollide(self, orav_grupp, False):
                 mang_labi = 2
                 surm_sound.play()
-            if pygame.sprite.spritecollide(self, kopter_grupp, False):
-                mang_labi = 2
-                surm_sound.play()
             if pygame.sprite.spritecollide(self, jaa_grupp, False) and self.jumped = True:
                 #tegelane nö kukub
                 self.rect.angle = 90
                 mang_labi = 2
                 surm_sound.play()
             if pygame.sprite.spritecollide(self, jaa_grupp, False):
+                #libe!!
                 self.speed *= 1.5
                 jump_sound.play()
