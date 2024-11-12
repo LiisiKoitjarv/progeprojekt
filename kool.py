@@ -31,6 +31,8 @@ ruudu_suurus = 50
 mang_labi = 0
 level = 1
 main_menu = True
+
+#värvid main menu jaoks
 roosa = (255, 0, 125)
 sinine = (0, 0, 255)
 roheline = (0, 128, 0)
@@ -49,7 +51,6 @@ orav_img = pygame.image.load('orav.png')
 #kopter_img = pygame.image.load('kopter.png') - tuleb veel!!!
 
 
-
 #muusika ja heli
 mixer.music.load('muuuusika')
 mixer.music.play(-1, 0.0, 5000)
@@ -59,8 +60,6 @@ surm_sound = mixer.Sound('surmmmmm')
 surm_sound.set_volume(0.5)
 win_sound = mixer.Sound('võittttttt')
 win_sound.set_volume(0.5)
-
-
 
 #taimer
 minutid = 0
@@ -75,6 +74,7 @@ def level_uuesti(level):
     player.reset(50, ekraani_korgus - 130)
     return world
 
+#vastased ja Tiksu
 class Auto(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -115,27 +115,10 @@ class Jaa(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        
-class Ratas(pygame.sprite.Sprite):
-     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        img = ratas_img
-        self.image = pygame.transform.scale(img, (ruudu_suurus, ruudu_suurus))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        
-    def update(self):
-        self.rect.y += self.move_direction
-        self.move_counter += 0.5
-        if abs(self.move_counter) > 50:
-            self.move_direction *= -1
-            self.move_counter *= -1
             
 auto_grupp = pygame.sprite.Group()
 orav_grupp = pygame.sprite.Group()
 jaa_grupp = pygame.sprite.Group()
-ratas_grupp = pygame.sprite.Group()
 
 
 class Player():
@@ -179,7 +162,7 @@ class Player():
             #koodi veel
             #for loop
             
-            if pygame.sprite.spritecollide(self, auto_group, False):
+            if pygame.sprite.spritecollide(self, auto_grupp, False):
                 mang_labi = 2
                 surm_sound.play()
             if pygame.sprite.spritecollide(self, orav_grupp, False):
