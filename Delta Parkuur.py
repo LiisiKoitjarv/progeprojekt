@@ -3,7 +3,7 @@
 # 2024/2025 sügissemester
 #
 # Projekt
-# Teema: Platformer mäng, kus Nõost pärit tudeng, kes elab
+# Teema: Platformer mäng, kus tudeng, kes elab
 # ühikas peab jõudma Deltasse õppima
 #
 # Autorid: Taavi Vähi, Liisi Koitjärv
@@ -91,7 +91,7 @@ class Player():
         self.index = 0
         self.counter = 0
         for num in range(1, 5):
-            img_right = pygame.image.load(f'nookas{num}.png')
+            img_right = pygame.image.load(f'tudeng{num}.png')
             img_right = pygame.transform.scale(img_right, (40, 80))
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
