@@ -80,7 +80,7 @@ def reset_level(level):
     player.reset(50, ekraani_korgus - 130)
     return world
 
-# tegelane Nõokas
+# tudeng tegelane
 class Player():
     def __init__(self, x, y):
         self.reset(x, y)
