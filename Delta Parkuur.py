@@ -3,59 +3,56 @@
 # 2024/2025 sügissemester
 #
 # Projekt
-# Teema: Platformer mäng
-#
+# Teema: Platformer mäng, kus Nõost pärit tudeng, kes elab
+# ühikas peab jõudma Deltasse õppima
 #
 # Autorid: Taavi Vähi, Liisi Koitjärv
 #
 # mõningane eeskuju: Donkey Kong (1981)
 #
-# Lisakommentaar (nt käivitusjuhend): lae alla ka pildid ja
-# helid ning lihtsalt pane run kas Thonnys või VSCode'is
+# Lisakommentaar (nt käivitusjuhend): lae alla pildid ja helid, 
+# salvesta programm ja lihtsalt pane 'run' kas Thonnys või VSCode'is
 ##################################################
 
-#väärtused jms
+#import 
 from time import sleep
 import pygame
 import random
 pygame.init()
 
+#väärtused jms
 clock = pygame.time.Clock()
 fps = 60
+timer_running = True
 
 ekraani_laius = 1000
 ekraani_korgus = 800
 ekraan = pygame.display.set_mode((ekraani_laius, ekraani_korgus))
-pygame.display.set_caption('Parkuur')
+pygame.display.set_caption('Delta Parkuur')
 
-# väärtused
 ruudu_suurus = 50
 mang_labi = 0
 level = 1
-main_menu = True
+# main_menu = True --- tuleb veel!
 roosa = (255, 0, 125)
 sinine = (0, 0, 255)
 roheline = (0, 128, 0)
 punane = (255, 0, 0)
 valge = (255, 255, 255)
+
 # font
 font = pygame.font.SysFont('Bauhaus 93', 50)
 voidu_font = pygame.font.SysFont('Bauhaus93', 200)
 timer_font = pygame.font.SysFont('Times New Roman', 50)
 
 # pildid
-
-nrg_img = pygame.image.load('taustapilt.png')
+taust_img = pygame.image.load('taustapilt.png')
 orav_img = pygame.image.load('orav.png')
 kast_img = pygame.image.load('kivi.png')
 gclass_img = pygame.image.load('gclass.png')
-
 jaapurikas_img = pygame.image.load('jaapurikas.png')
-
 jaa_img = pygame.image.load('jaa.png')
-
 tiksu = pygame.image.load('tiksu.png')
-kastu_img = pygame.image.load('kivi.png')
 
 # sounds
 pygame.mixer.music.load('taust.mp3')
@@ -74,15 +71,16 @@ millisekundid = 0
 image_size = (50, 50)
 image_size2 = (145, 135)
 image_size3 = (135, 91.5)
+
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     ekraan.blit(img, (x, y))
 
 def reset_level(level):
     player.reset(50, ekraani_korgus - 130)
-
     return world
 
+# tegelane Nõokas
 class Player():
     def __init__(self, x, y):
         self.reset(x, y)
@@ -242,7 +240,6 @@ lumi = [Lumi() for _ in range(100)]
 class World():
     def __init__(self, data):
         self.tile_list = []
-
         rida_count = 0
         for rida in data:
             col_count = 0
@@ -254,28 +251,27 @@ class World():
                     img_rect.y = rida_count * ruudu_suurus
                     ruut = (img, img_rect)
                     self.tile_list.append(ruut)
-                if ruut == 2:
-                    img = pygame.transform.scale(kastu_img, (ruudu_suurus, ruudu_suurus))
+                '''
+                if ruut == 2: #tuleb libe block
+                    img = pygame.transform.scale(libe_img, (ruudu_suurus, ruudu_suurus))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * ruudu_suurus
                     img_rect.y = rida_count * ruudu_suurus
                     ruut = (img, img_rect)
                     self.tile_list.append(ruut)
+                '''
                 if ruut == 4:
                     gclass = Gclass(col_count * ruudu_suurus, rida_count * ruudu_suurus + 15)
                     gclass_grupp.add(gclass)
                 if ruut == 6:
                     orav = Orav(col_count * ruudu_suurus, rida_count * ruudu_suurus + 15)
                     orav_grupp.add(orav)
-
                 if ruut == 8:
                     jaapurikas = Jaapurikas(col_count * ruudu_suurus, rida_count * ruudu_suurus)
                     jaapurikas_grupp.add(jaapurikas)
-
                 if ruut == 10:
                     jaa = Jaa(col_count * ruudu_suurus, rida_count * ruudu_suurus)
                     jaa_grupp.add(jaa)
-
                 if ruut == 12:
                     tiksu = Tiksu(col_count * ruudu_suurus, rida_count * ruudu_suurus)
                     tiksu_grupp.add(tiksu)
@@ -354,7 +350,6 @@ class Tiksu(pygame.sprite.Sprite):
 
 
 #map, igale numbrile vastab pilt
-
 world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 1],
@@ -389,35 +384,32 @@ world = World(world_data)
 
 run = True
 while run:
-    dt = clock.tick(fps)
-    millisekundid += dt
-    if millisekundid >= 1000:
-        sekundid += 1
-        millisekundid -= 1000
-    if sekundid >= 60:
-        minutid += 1
-        sekundid -= 60
+    if timer_running:
+        dt = clock.tick(fps)
+        millisekundid += dt
+        if millisekundid >= 1000:
+            sekundid += 1
+            millisekundid -= 1000
+        if sekundid >= 60:
+            minutid += 1
+            sekundid -= 60
 
-    ekraan.blit(nrg_img, (0, 0))
-
+    ekraan.blit(taust_img, (0, 0))
     aeg = str(minutid) + ":" + str(sekundid) + ":" + str(round(millisekundid, 1))
     draw_text(aeg, timer_font, (255, 0, 0), 50, 50)
 
     # mangu algus
-    
     world.draw()
-        # koik grupid joonistatakse ekraanile
+
+    # koik grupid joonistatakse ekraanile
     orav_grupp.update()
     orav_grupp.draw(ekraan)
     gclass_grupp.update()
     gclass_grupp.draw(ekraan)
-
     jaapurikas_grupp.update()
     jaapurikas_grupp.draw(ekraan)
-
     jaa_grupp.update()
     jaa_grupp.draw(ekraan)
-
     tiksu_grupp.update()
     tiksu_grupp.draw(ekraan)
 
@@ -434,6 +426,7 @@ while run:
 
     # mang_labi == 1 : tegelane joudis leveli lõppu ja võitis
     if mang_labi == 1:
+        timer_running = False #timer jääb seisma
         draw_text('võitja', voidu_font, roosa, 200, 400)
 
     for lumehelbed in lumi:
